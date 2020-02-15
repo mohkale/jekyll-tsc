@@ -1,0 +1,17 @@
+Style/EndOfLine:
+  EnforcedStyle: lf
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  enabled: false
+
+Metrics/AbcSize:
+  enabled: false
+
+Metrics/BlockLength:
+  enabled: false
