@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb']
 
   s.add_dependency 'jekyll', '~> 3.8'
-  s.add_development_dependency 'bundler'
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'bundler', '~> 1.17.2'
+  s.add_development_dependency 'rspec', '~> 3.9'
 
   s.description = <<EOF
 provides automatic compilation of typescript files to javascript
