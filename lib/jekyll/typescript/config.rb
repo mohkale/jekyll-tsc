@@ -10,7 +10,7 @@ module Jekyll
     #
     module Config
       def ts_extensions
-        @ts_extensions ||= Array(config['extensions']) || %w[.ts .js]
+        @ts_extensions ||= Array(config['extensions']) || %w[.ts .tsx]
       end
 
       def copy_extensions
