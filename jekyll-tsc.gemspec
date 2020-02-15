@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require_relative './lib/jekyll/typescript/version'
+
 Gem::Specification.new do |s|
   s.name     = 'jekyll-site-tree'
+  s.version  = Jekyll::Typescript::VERSION
   s.summary  = 'compile typescript files on your jekyll blog.'
   s.license  = 'MIT'
   s.authors  = ['Mohsin Kaleem']
