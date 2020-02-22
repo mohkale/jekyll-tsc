@@ -73,6 +73,13 @@ module Jekyll
         @pages << page if copy_ext? page.ext
       end
 
+      def page_to_output_path(page)
+        # TODO only change the extension of .ts files.
+        File.join(temp_dir,
+                  File.dirname(page.relative_path),
+                  File.basename(page.relative_path, '.*') + '.js')
+      end
+
       # Once all the site files have been processed, compile and replace the content
       # of any typescript files.
       #
@@ -95,11 +102,7 @@ module Jekyll
             raise SyntaxError, "typescript failed to convert: #{page.path}\n" + compile_output
           end
 
-          output_file = File.join(temp_dir,
-                                  File.dirname(page.relative_path),
-                                  File.basename(page.relative_path, '.*') + '.js')
-
-          page.output = File.open(output_file, 'r', &:read)
+          page.output = File.read(page_to_output_path(page))
         end
       end
 
@@ -116,7 +119,6 @@ module Jekyll
       def populate_temp_dir
         Dir.chdir(temp_dir) do
           (@pages + static_files).each do |page|
-
             if page.is_a?(StaticFile)
               FileUtils.mkdir_p('./' + page.instance_variable_get(:@dir))
               FileUtils.copy(site.in_source_dir(page.relative_path),
