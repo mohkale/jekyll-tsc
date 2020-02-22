@@ -28,7 +28,7 @@ module Jekyll
       private
 
       def config
-        @config ||= site.config['typescript']
+        @config ||= site.config['typescript'] || {}
       end
     end
   end
