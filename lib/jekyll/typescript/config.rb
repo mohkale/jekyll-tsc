@@ -25,6 +25,14 @@ module Jekyll
         @tsc_command ||= Array(config['command']) || ['tsc']
       end
 
+      def cache_enabled?
+        if @cache_enabled.nil?
+          @cache_enabled = config.fetch('cache', true)
+        end
+
+        @cache_enabled
+      end
+
       private
 
       def config

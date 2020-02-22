@@ -5,6 +5,7 @@ require 'fileutils'
 require 'shellwords'
 require_relative './config'
 require_relative './tsconfig'
+require_relative './mancache'
 
 module Jekyll
   module Typescript
@@ -13,8 +14,9 @@ module Jekyll
       SyntaxError = Class.new(ArgumentError)
 
       include ::Singleton
-      include Config
+      include Config # jekyll config
       include TSConfig
+      prepend ManagerCache
 
       # whether :ext is associated with a typescript extension.
       #
@@ -61,8 +63,6 @@ module Jekyll
       def pre_render(site, _)
         self.site = site
         @pages = []
-        Jekyll.logger.debug('Typescript', 'clearing out temporary build directory.')
-        FileUtils.rm_rf(Dir.glob(File.join(temp_dir, '*')))
       end
 
       # Typescript hook run after a page has been rendered. This is used to add a
@@ -86,12 +86,12 @@ module Jekyll
       def post_render(*args)
         setup
 
-        populate_temp_dir
-        @pages.each do |page|
-          next unless typescript_ext? page.ext
+        Jekyll.logger.debug('Typescript', 'clearing out temporary build directory.')
+        FileUtils.rm_rf(Dir.glob(File.join(temp_dir, '*')))
 
-          # change the output extension. it's a hack... but it works so good enough.
-          page.send(:_renderer).instance_variable_set(:@output_ext, '.js')
+        populate_temp_dir
+        @pages.select.each do |page|
+          next unless typescript_ext? page.ext
 
           command = compile_command(in_temp_dir(page.relative_path))
           Jekyll.logger.debug('Typescript') {
@@ -143,7 +143,7 @@ module Jekyll
         unless @tsconfig_args
           config_file = 'tsconfig.json'
 
-          @tsconfig_args = if File.exists?(config_file)
+          @tsconfig_args = if File.exist?(config_file)
                              parse_tsconfig(dumb_read_json(config_file))
                            else
                              Jekyll.logger.warn('Typescript', "no config file found at #{config_file}")
