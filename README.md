@@ -42,6 +42,7 @@ typescript:
   extensions: ['.ts', '.tsx']
   copy_ext: []
   command: ['tsc']
+  cache: true
 ```
 
 ### `temp_dir`
@@ -61,6 +62,18 @@ The command which is run to compile files. In general this should just be the pa
 the `tsc` executable, however you're free to specify any command line flags you don't
 want in your tsconfig.json file here; or to change the executable to one local to your
 site directory, eg. in `node_modules`.
+
+### `cache`
+typescript compilation can really slow down build speeds when your site is being served.
+This option enables a caching mechanism so typescript files are only compiled when the
+source files they depend on have been modified.
+
+This is done by calculating the md5 hash of each page being processed, and only rebuilding
+when the hashes are unequal. What this in affect means is that javascript files are compiled
+independently of other assets for your jekyll site.
+
+If you face issues with changes not being reflected in your `_site` directory, try disabling
+this option to see if the issue persists.
 
 ## Design Decisions
 This section is only a concern for developers for this plugin.
