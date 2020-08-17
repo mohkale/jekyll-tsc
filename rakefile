@@ -1,0 +1,9 @@
+require_relative './lib/jekyll/typescript/version'
+
+task :build do
+  sh 'gem build jekyll-tsc.gemspec'
+end
+
+task :release => :build do
+  sh "gem push jekyll-tsc-#{Jekyll::Typescript::VERSION}.gem"
+end
