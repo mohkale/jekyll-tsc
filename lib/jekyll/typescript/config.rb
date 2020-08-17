@@ -10,11 +10,11 @@ module Jekyll
     #
     module Config
       def ts_extensions
-        @ts_extensions ||= Array(config['extensions']) || %w[.ts .tsx]
+        @ts_extensions ||= Array(config['extensions'] || %w[.ts .tsx])
       end
 
       def copy_extensions
-        @copy_extensions ||= Array(config['copy_ext']) || []
+        @copy_extensions ||= Array(config['copy_ext'])
       end
 
       def temp_dir
@@ -22,7 +22,7 @@ module Jekyll
       end
 
       def tsc_command
-        @tsc_command ||= Array(config['command']) || ['tsc']
+        @tsc_command ||= Array(config['command'] || ['tsc'])
       end
 
       def cache_enabled?

@@ -99,7 +99,8 @@ module Jekyll
           compile_output = IO.popen(command, &:read).chomp # spawn a cmd & read process output.
 
           unless $?.success?
-            raise SyntaxError, "typescript failed to convert: #{page.path}\n" + compile_output
+            puts compile_output
+            raise SyntaxError, "typescript failed to convert: #{page.path}\n"
           end
 
           page.output = File.read(page_to_output_path(page))
