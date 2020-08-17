@@ -4,9 +4,6 @@ module Jekyll
   module Typescript
     # Module providing methods to aid in the parsing of tsconfig.json files.
     #
-    # WARN, some of this file is basically me ranting about how absurd tsc
-    # and some of the general web app standards are, as a Unix lover.
-    #
     module TSConfig
       # Parse a tsconfig.json JSON object into an array of equivalent commands
       # line flags.
@@ -40,18 +37,6 @@ module Jekyll
       private
 
       # read a json file at :path, but allow for comments in the file.
-      #
-      # RANT
-      # Why in the great stallmans name does everyone use JSON as a config
-      # format when it doesn't support comments?
-      #
-      # RANT
-      # Why in gods name does JSON forbid comments when their pretty much
-      # ubiquotous?
-      #
-      # Adding an option to most parsers to allow comments doesn't seem too
-      # unreasonable, I mean it's not like JSON is solely used as a web
-      # interchange format anymore.
       #
       def dumb_read_json(path)
         File.open(path, 'r') do |file|
