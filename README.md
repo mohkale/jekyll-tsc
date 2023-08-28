@@ -1,4 +1,8 @@
 # jekyll-tsc
+
+**Warning**: This extension is no longer being maintained. Please look elsewhere for
+finding ways to integrate jekyll and typescript.
+
 The long lost [typescript][typescript] converter for [jekyll][jekyll] :blue_book:.
 
 [jekyll]: https://github.com/jekyll/jekyll
